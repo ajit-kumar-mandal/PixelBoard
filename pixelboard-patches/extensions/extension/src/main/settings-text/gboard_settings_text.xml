@@ -849,6 +849,14 @@
         <translation locale="th">เปิดใช้รูปแบบปุ่มโค้งมน Material 3 Expressive (Belka)</translation>
         <translation locale="uk">Увімкнути закруглений стиль клавіш Material 3 Expressive (Belka).</translation>
     </string>
+    <string name="gboard_patches_rgb_key_glow_enabled_title">
+        <translation locale="en">RGB Key Glow</translation>
+        <translation locale="hi">RGB की ग्लो</translation>
+    </string>
+    <string name="gboard_patches_rgb_key_glow_enabled_summary">
+        <translation locale="en">Display a subtle animated RGB glow around keyboard keys and brighten the pressed key.</translation>
+        <translation locale="hi">कीबोर्ड कीज़ के आसपास हल्की एनिमेटेड RGB ग्लो दिखाएं और दबाई गई की को अधिक चमकाएं।</translation>
+    </string>
     <string name="gboard_patches_frequently_used_emojis_title">
         <translation locale="en">Frequently used emojis</translation>
         <translation locale="es">Emojis de uso frecuente</translation>

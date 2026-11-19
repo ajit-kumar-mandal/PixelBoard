@@ -44,8 +44,30 @@ jobs:
           cd pixelboard-patches
           ./gradlew :patches:buildAndroid
 
+      - name: Download stock Gboard APK
+        if: ${{ vars.GBOARD_APK_URL != '' }}
+        env:
+          GBOARD_APK_URL: ${{ vars.GBOARD_APK_URL }}
+        run: |
+          mkdir -p input
+          curl --fail --location --retry 3 --output input/gboard.apk "$GBOARD_APK_URL"
+
+      - name: Build PixelBoard APK
+        if: ${{ vars.GBOARD_APK_URL != '' }}
+        run: ./build.sh --rebuild
+
       - name: Upload Compiled Patch Bundle
         uses: actions/upload-artifact@v4
         with:
           name: pixelboard-patches-bundle
           path: pixelboard-patches/patches/build/libs/*.mpp
+
+      - name: Upload PixelBoard APK
+        if: ${{ vars.GBOARD_APK_URL != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: pixelboard-apk
+          path: |
+            output/PixelBoard.apk
+            output/PixelBoard-*.apk
+          if-no-files-found: error

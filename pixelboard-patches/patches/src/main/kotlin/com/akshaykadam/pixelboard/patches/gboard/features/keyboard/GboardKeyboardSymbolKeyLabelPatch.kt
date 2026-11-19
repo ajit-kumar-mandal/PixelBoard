@@ -45,6 +45,7 @@ internal val gboardKeyboardSymbolKeyLabelPatch = bytecodePatch(
                 """
                     ${RuntimeCallEmitter.invoke(call, "p1")}
                     move-result-object p1
+                    ${RuntimeCallEmitter.invoke(RuntimeCallId.KEYBOARD_RUNTIME_APPLY_RGB_GLOW, "p0")}
                 """.trimIndent()
             )
         }

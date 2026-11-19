@@ -3128,6 +3128,9 @@ public final class GboardPatchesSettingsActivity extends Activity
             GboardRoundedKeysSettings.ensureDefaults(context, patchesPrefs);
             GboardGoogleSansSettings.ensureDefaults(context, patchesPrefs);
             GboardUndoSettings.ensureDefaults(context, patchesPrefs);
+            if (!patchesPrefs.contains("rgb_key_glow_enabled")) {
+                patchesPrefs.edit().putBoolean("rgb_key_glow_enabled", true).apply();
+            }
         }
 
         boolean aiWritingToolsEnabled = writingPrefs == null
@@ -3138,6 +3141,8 @@ public final class GboardPatchesSettingsActivity extends Activity
                 || GboardAdvancedVoiceSettings.readEnabled(voicePrefs);
         boolean roundedKeysEnabled = patchesPrefs == null
                 || GboardRoundedKeysSettings.readEnabled(patchesPrefs);
+        boolean rgbKeyGlowEnabled = patchesPrefs != null
+                && patchesPrefs.getBoolean("rgb_key_glow_enabled", true);
         boolean frequentEmojisEnabled = patchesPrefs != null
                 && GboardEmojiSettings.readFrequentEmojisEnabled(patchesPrefs);
 
@@ -3187,6 +3192,20 @@ public final class GboardPatchesSettingsActivity extends Activity
                     if (patchesPrefs != null) {
                         GboardRoundedKeysSettings.writeEnabled(patchesPrefs, value);
                         GboardRoundedKeysSettings.applyToGboardPreferences(context, value);
+                        renderCurrentScreenSafely();
+                    }
+                }));
+
+        rows.add(new GboardPatchesSettingsContract.ToggleRow(
+                GboardSettingsText.get(context, R.string.gboard_patches_rgb_key_glow_enabled_title),
+                GboardSettingsText.get(context, R.string.gboard_patches_rgb_key_glow_enabled_summary),
+                true,
+                rgbKeyGlowEnabled,
+                value -> {
+                    if (patchesPrefs != null) {
+                        patchesPrefs.edit()
+                                .putBoolean("rgb_key_glow_enabled", value)
+                                .apply();
                         renderCurrentScreenSafely();
                     }
                 }));
